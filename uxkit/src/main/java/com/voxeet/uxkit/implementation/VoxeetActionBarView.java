@@ -60,17 +60,19 @@ public class VoxeetActionBarView extends VoxeetView {
     /**
      * handling buttons visibility
      */
-    private boolean displaySpeaker = true;
+    private boolean displaySpeaker = false;
     private boolean displayMute = true;
     private boolean displayCamera = true;
     private boolean displayLeave = true;
     private boolean displayScreenShare = true;
+    private boolean displayFlip = true;
 
     private ImageView microphone;
     private ImageView speaker;
     private ImageView camera;
     private ImageView hangup;
     private ImageView screenshare;
+    private ImageView flip;
 
     private ViewGroup microphone_wrapper;
     private ViewGroup speaker_wrapper;
@@ -78,6 +80,8 @@ public class VoxeetActionBarView extends VoxeetView {
     private ViewGroup hangup_wrapper;
     private ViewGroup screenshare_wrapper;
     private ViewGroup view_3d_wrapper;
+    private ViewGroup flip_wrapper;
+
 
     private View view_3d;
     private OnView3D view3d_listener;
@@ -112,11 +116,12 @@ public class VoxeetActionBarView extends VoxeetView {
     private void updateAttrs(AttributeSet attrs) {
         TypedArray attributes = getContext().obtainStyledAttributes(attrs, R.styleable.VoxeetActionBarView);
 
-        displaySpeaker = attributes.getBoolean(R.styleable.VoxeetActionBarView_speaker_button, true);
+        displaySpeaker = attributes.getBoolean(R.styleable.VoxeetActionBarView_speaker_button, false);
         displayMute = attributes.getBoolean(R.styleable.VoxeetActionBarView_mute_button, true);
         displayCamera = attributes.getBoolean(R.styleable.VoxeetActionBarView_video_button, true);
         displayScreenShare = attributes.getBoolean(R.styleable.VoxeetActionBarView_screenshare_button, true);
         displayLeave = attributes.getBoolean(R.styleable.VoxeetActionBarView_leave_button, true);
+        displayFlip = attributes.getBoolean(R.styleable.VoxeetActionBarView_flip_button, true);
 
         attributes.recycle();
     }
@@ -172,7 +177,18 @@ public class VoxeetActionBarView extends VoxeetView {
         setUserPreferences();
         return this;
     }
-
+    /**
+     * Change how the flip button must be shown
+     *
+     * @param displayFlip the new mute display state
+     * @return the current instance
+     */
+    @NonNull
+    public VoxeetActionBarView setDisplayFlip(boolean displayCamera) {
+        this.displayFlip = displayFlip;
+        setUserPreferences();
+        return this;
+    }
     /**
      * Change how the leave/hang up button must be shown
      *
@@ -361,6 +377,10 @@ public class VoxeetActionBarView extends VoxeetView {
         microphone_wrapper = v.findViewById(R.id.microphone_wrapper);
         microphone.setOnClickListener(v12 -> toggleMute());
 
+        flip = v.findViewById(R.id.flip);
+        flip_wrapper = v.findViewById(R.id.flip_wrapper);
+        flip.setOnClickListener(v12 -> toggleFlip());
+
         camera = v.findViewById(R.id.camera);
         camera_wrapper = v.findViewById(R.id.camera_wrapper);
         camera.setOnClickListener(v13 -> toggleCamera());
@@ -377,12 +397,14 @@ public class VoxeetActionBarView extends VoxeetView {
         StateListDrawable selector_screenshare = createOverridenSelector(configuration.screenshare_on, configuration.screenshare_off);
         StateListDrawable selector_speaker = createOverridenSelector(configuration.speaker_on, configuration.speaker_off);
         StateListDrawable selector_hangup = createOverridenSelectorPressed(configuration.hangup, configuration.hangup_pressed);
+        StateListDrawable selector_flip = createOverridenSelector(configuration.flip, configuration.flip);
 
         if (null != selector_camera) camera.setImageDrawable(selector_camera);
         if (null != selector_microphone) microphone.setImageDrawable(selector_microphone);
         if (null != selector_screenshare) screenshare.setImageDrawable(selector_screenshare);
         if (null != selector_speaker) speaker.setImageDrawable(selector_speaker);
         if (null != selector_hangup) hangup.setImageDrawable(selector_hangup);
+        if (null != selector_flip) speaker.setImageDrawable(selector_flip);
 
         if (!checkMicrophonePermission()) {
             microphone.setSelected(true);
@@ -409,6 +431,51 @@ public class VoxeetActionBarView extends VoxeetView {
             VoxeetSDK.conference().mute(new_muted_state);
         }
     }
+
+    /**
+     * Toggle the mute button
+     */
+
+     public void toggleFlip() {
+         String ownUserId = VoxeetSDK.session().getParticipantId();
+         if (null == ownUserId) ownUserId = "";
+
+         VideoView self = selfVideoView.get();
+         VideoView other = otherVideoView.get();
+
+         VideoView finalVideoView = null;
+
+         if (null != self && ownUserId.equals(self.getPeerId())) {
+             finalVideoView = self;
+         } else if (null != other && ownUserId.equals(other.getPeerId())) {
+             finalVideoView = other;
+         }
+
+         //if (null != finalVideoView && finalVideoView == self) { //force for now the effect only in the SELF VIDEO VIEW
+             //until a proper animation is found
+
+             //switchCamera should not trigger crash since it is only possible
+             //to click when already capturing and ... rendering the camera
+
+             //ObjectAnimator animationFlip = ObjectAnimator.ofFloat(finalVideoView, View.ROTATION_Y, -180f, -360f);
+            // animationFlip.setInterpolator(new AccelerateDecelerateInterpolator());
+
+             //ObjectAnimator animationGrow = ObjectAnimator.ofFloat(finalVideoView, View.SCALE_Y, 1f, 1.15f, 1f);
+             //animationGrow.setInterpolator(new AccelerateDecelerateInterpolator());
+             //
+             // AnimatorSet animatorSet = new AnimatorSet();
+             // animatorSet.setDuration(450).setStartDelay(450);
+             // animatorSet.playTogether(animationFlip, animationGrow);
+             // animatorSet.start();
+         //}
+
+         VoxeetSDK.mediaDevice().switchCamera()
+                 .then(aBoolean -> {
+                     CameraContext provider = VoxeetSDK.mediaDevice().getCameraContext();
+                     updateMirror(provider.isDefaultFrontFacing());
+                 })
+                 .error(Throwable::printStackTrace);
+     }
 
     /**
      * Activate or deactivate the local camera
@@ -495,6 +562,9 @@ public class VoxeetActionBarView extends VoxeetView {
         if (hangup != null)
             hangup_wrapper.setVisibility(displayLeave ? VISIBLE : GONE);
 
+        if (flip != null)
+            flip_wrapper.setVisibility(displayLeave ? VISIBLE : GONE);
+
         boolean screenShareEnabled = VoxeetToolkit.instance().getConferenceToolkit().isScreenShareEnabled();
         if (screenshare != null)
             screenshare_wrapper.setVisibility(displayScreenShare && !listener && screenShareEnabled ? VISIBLE : GONE);
@@ -568,6 +638,8 @@ public class VoxeetActionBarView extends VoxeetView {
         if (hangup != null)
             hangup_wrapper.setVisibility(displayLeave ? visibility : GONE);
 
+        if (flip != null)
+            flip_wrapper.setVisibility(displayFlip ? visibility : GONE);
 
         boolean screenShareEnabled = VoxeetToolkit.instance().getConferenceToolkit().isScreenShareEnabled();
         if (screenshare != null)

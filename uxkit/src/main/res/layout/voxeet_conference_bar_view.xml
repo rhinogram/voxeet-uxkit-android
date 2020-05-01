@@ -25,7 +25,22 @@
             android:src="@drawable/selector_speaker" />
 
     </LinearLayout>
+    <LinearLayout
+        android:id="@+id/flip_wrapper"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:paddingLeft="@dimen/conferencebar_view_padding_left_right"
+        android:paddingRight="@dimen/conferencebar_view_padding_left_right">
 
+        <ImageView
+            android:id="@+id/flip"
+            android:layout_width="@dimen/conferencebar_view_item_height"
+            android:layout_height="@dimen/conferencebar_view_item_height"
+            android:layout_gravity="center"
+            android:src="@drawable/selector_flip" />
+    </LinearLayout>
     <LinearLayout
         android:id="@+id/microphone_wrapper"
         android:layout_width="0dp"

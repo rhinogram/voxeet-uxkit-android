@@ -21,7 +21,7 @@ public class ActionBar {
     /**
      * Should the internal/external speaker be displayed. _null_ to use the default one.
      */
-    public boolean displaySpeaker = true;
+    public boolean displaySpeaker = false;
     /**
      * Should the camera on/off button be displayed. _null_ to use the default one.
      */
@@ -42,7 +42,11 @@ public class ActionBar {
     /**
      * Set the R.drawable reference to show when the mic is unmuted. _null_ to use the default one.
      */
-    public Integer mic_on = null;
+    public Integer flip = null;
+/**
+    * Set the R.drawable reference to show when the mic is unmuted. _null_ to use the default one.
+    */
+   public Integer mic_on = null;
 
     /**
      * Set the R.drawable reference to show when the speakers used are the internal ones. _null_ to use the default one.
