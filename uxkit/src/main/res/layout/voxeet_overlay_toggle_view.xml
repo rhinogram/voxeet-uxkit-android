@@ -44,8 +44,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/selector_minimize"
-                        android:minHeight="@dimen/conference_view_avatar_size"
-                        android:padding="2dp">
+                        android:minHeight="@dimen/conference_view_avatar_size">
 
                         <ImageView
                             android:layout_width="60dp"
