@@ -28,8 +28,8 @@
     <color name="background_dialog">#FBFBFB</color>
 
     <color name="hint_text_color">#b2b2b2</color>
-    <color name="default_font_color">#fffff</color>
-    <color name="default_title_color">#fffff</color>
+    <color name="default_font_color">#FFFFFF</color>
+    <color name="default_title_color">#FFFFFF</color>
 
     <color name="fab_dim_color">#77000000</color>
     <color name="overlay_dim_color">#77000000</color>
