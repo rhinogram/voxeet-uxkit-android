@@ -350,7 +350,7 @@ public class VoxeetConferenceView extends AbstractVoxeetExpandableView implement
                 selectedView.setVisibility(View.VISIBLE);
             else showSpeakerView();
             participantView.setVisibility(View.VISIBLE);
-            voxeetTimer.setVisibility(View.GONE);
+            voxeetTimer.setVisibility(View.VISIBLE);
             notchView.setVisibility(View.VISIBLE);
         } else {
             conferenceState.setVisibility(View.GONE);
@@ -398,7 +398,7 @@ public class VoxeetConferenceView extends AbstractVoxeetExpandableView implement
             }
             speakerView.setVisibility(View.GONE);
             participantView.setVisibility(View.VISIBLE);
-            voxeetTimer.setVisibility(View.GONE);
+            voxeetTimer.setVisibility(View.VISIBLE);
             notchView.setVisibility(View.GONE);
         }
 
