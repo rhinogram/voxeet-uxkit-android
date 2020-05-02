@@ -604,7 +604,7 @@ public class VoxeetConferenceView extends AbstractVoxeetExpandableView implement
     @Override
     public void onExpandedView() {
         isExpanded = true;
-        layoutTimer.setVisibility(View.GONE);
+        layoutTimer.setVisibility(View.VISIBLE);
 
         layoutParticipant.setVisibility(View.VISIBLE);
         participantView.notifyDatasetChanged();
