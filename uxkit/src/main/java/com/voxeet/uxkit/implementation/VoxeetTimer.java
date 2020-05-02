@@ -29,9 +29,9 @@ public class VoxeetTimer extends VoxeetView {
 
     private int action = 1;
 
-    private RoundedImageView recordingImageAlpha;
-
-    private RoundedImageView recordingImage;
+    // private RoundedImageView recordingImageAlpha;
+    //
+    // private RoundedImageView recordingImage;
 
     private ViewGroup colorLayout;
 
@@ -198,11 +198,11 @@ public class VoxeetTimer extends VoxeetView {
 
     private void updateColors() {
         if (VoxeetSDK.conference().isLive()) {
-            recordingImage.setColorFilter(inConferenceColor);
-            recordingImageAlpha.setColorFilter(inConferenceColor);
+            // recordingImage.setColorFilter(inConferenceColor);
+            // recordingImageAlpha.setColorFilter(inConferenceColor);
         } else {
-            recordingImage.setColorFilter(notInConferenceColor);
-            recordingImageAlpha.setColorFilter(notInConferenceColor);
+            // recordingImage.setColorFilter(notInConferenceColor);
+            // recordingImageAlpha.setColorFilter(notInConferenceColor);
         }
 
         timer.setTextColor(textColor);
@@ -229,8 +229,8 @@ public class VoxeetTimer extends VoxeetView {
             @Override
             public void onAnimationUpdate(ValueAnimator animator) {
                 int color = (int) animator.getAnimatedValue();
-                recordingImage.setColorFilter(color);
-                recordingImageAlpha.setColorFilter(color);
+                // recordingImage.setColorFilter(color);
+                // recordingImageAlpha.setColorFilter(color);
             }
 
         });
@@ -250,7 +250,7 @@ public class VoxeetTimer extends VoxeetView {
     public void onConferenceDestroyed() {
         super.onConferenceDestroyed();
         if (action == CONFERENCE_MODE) {
-            recordingImage.clearAnimation();
+            // recordingImage.clearAnimation();
 
             handler.removeCallbacks(updateTimerThread);
         }
@@ -275,8 +275,8 @@ public class VoxeetTimer extends VoxeetView {
 
     @Override
     public void init() {
-        recordingImage.setColorFilter(notInConferenceColor);
-        recordingImageAlpha.setColorFilter(notInConferenceColor);
+        // recordingImage.setColorFilter(notInConferenceColor);
+        // recordingImageAlpha.setColorFilter(notInConferenceColor);
     }
 
     @Override
