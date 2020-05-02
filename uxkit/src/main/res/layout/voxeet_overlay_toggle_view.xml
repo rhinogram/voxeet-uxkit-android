@@ -44,11 +44,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:background="@drawable/selector_minimize"
-                        android:minHeight="56dp">
+                        android:minHeight="@dimen/conferencebar_view_item_height">
 
                         <ImageView
-                            android:layout_width="40dp"
-                            android:layout_height="40dp"
+                            android:layout_width="@dimen/conferencebar_view_item_height"
+                            android:layout_height="@dimen/conferencebar_view_item_height"
                             android:layout_gravity="center"
                             android:src="@drawable/minimize" />
                     </LinearLayout>
