@@ -125,7 +125,7 @@
             android:layout_marginBottom="32dp"
             app:cornerRadius="5dp"
             app:scaleType="scale_fit"
-            app:showFlip="true" />
+            app:showFlip="false" />
 
         <!-- call action buttons -->
         <com.voxeet.uxkit.implementation.VoxeetActionBarView
