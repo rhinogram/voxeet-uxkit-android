@@ -44,10 +44,12 @@ import com.voxeet.sdk.utils.Validate;
 import com.voxeet.uxkit.R;
 import com.voxeet.uxkit.configuration.ActionBar;
 import com.voxeet.uxkit.controllers.VoxeetToolkit;
+import com.voxeet.sdk.media.camera.CameraContext;
 
 import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
+import com.voxeet.sdk.views.VideoView;
 
 /**
  * Class used to display the various action buttons in the conference
@@ -437,19 +439,19 @@ public class VoxeetActionBarView extends VoxeetView {
      */
 
      public void toggleFlip() {
-         String ownUserId = VoxeetSDK.session().getParticipantId();
-         if (null == ownUserId) ownUserId = "";
-
-         VideoView self = selfVideoView.get();
-         VideoView other = otherVideoView.get();
-
-         VideoView finalVideoView = null;
-
-         if (null != self && ownUserId.equals(self.getPeerId())) {
-             finalVideoView = self;
-         } else if (null != other && ownUserId.equals(other.getPeerId())) {
-             finalVideoView = other;
-         }
+         // String ownUserId = VoxeetSDK.session().getParticipantId();
+         // if (null == ownUserId) ownUserId = "";
+         //
+         // VideoView self = selfVideoView.get();
+         // VideoView other = otherVideoView.get();
+         //
+         // VideoView finalVideoView = null;
+         //
+         // if (null != self && ownUserId.equals(self.getPeerId())) {
+         //     finalVideoView = self;
+         // } else if (null != other && ownUserId.equals(other.getPeerId())) {
+         //     finalVideoView = other;
+         // }
 
          //if (null != finalVideoView && finalVideoView == self) { //force for now the effect only in the SELF VIDEO VIEW
              //until a proper animation is found
@@ -472,11 +474,46 @@ public class VoxeetActionBarView extends VoxeetView {
          VoxeetSDK.mediaDevice().switchCamera()
                  .then(aBoolean -> {
                      CameraContext provider = VoxeetSDK.mediaDevice().getCameraContext();
-                     updateMirror(provider.isDefaultFrontFacing());
+                     // updateMirror(provider.isDefaultFrontFacing());
                  })
                  .error(Throwable::printStackTrace);
      }
+     // public ConferenceViewRendererControl(@NonNull VoxeetConferenceView parent,
+     //                                      @NonNull VideoView selfVideoView,
+     //                                      @NonNull VideoView otherVideoView) {
+     //     this();
+     //     this.parent = new WeakReference<>(parent);
+     //     this.selfVideoView = new WeakReference<>(selfVideoView);
+     //     this.otherVideoView = new WeakReference<>(otherVideoView);
+     // }
 
+     // @NonNull
+     // private VideoView getOtherVideoView() {
+     //     return otherVideoView.get();
+     // }
+     //
+     // @NonNull
+     // private VideoView getSelfVideoView() {
+     //     return selfVideoView.get();
+     // }
+     //
+     // public void updateMirror(boolean isFrontCamera) {
+     //     String ownUserId = VoxeetSDK.session().getParticipantId();
+     //     VideoView selectedView = getOtherVideoView();
+     //     VideoView selfView = getSelfVideoView();
+     //
+     //     if (null != ownUserId) {
+     //         if (null != selectedView && ownUserId.equals(selectedView.getPeerId())) {
+     //             //only mirror the view in case of camera stream
+     //             MediaStreamType type = selectedView.current();
+     //             if (MediaStreamType.Camera.equals(type)) {
+     //                 selectedView.setMirror(isFrontCamera);
+     //             }
+     //         } else if (null != selfView && ownUserId.equals(selfView.getPeerId())) {
+     //             selfView.setMirror(isFrontCamera);
+     //         }
+     //     }
+     // }
     /**
      * Activate or deactivate the local camera
      */

@@ -25,6 +25,7 @@
             android:src="@drawable/selector_speaker" />
 
     </LinearLayout>
+    
     <LinearLayout
         android:id="@+id/flip_wrapper"
         android:layout_width="0dp"
@@ -41,6 +42,7 @@
             android:layout_gravity="center"
             android:src="@drawable/selector_flip" />
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/microphone_wrapper"
         android:layout_width="0dp"
