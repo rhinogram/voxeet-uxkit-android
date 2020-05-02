@@ -33,7 +33,7 @@ public class VoxeetTimer extends VoxeetView {
     //
     // private RoundedImageView recordingImage;
 
-    private ViewGroup colorLayout;
+    // private ViewGroup colorLayout;
 
     private TextView timer;
 
@@ -153,14 +153,14 @@ public class VoxeetTimer extends VoxeetView {
      *
      * @param isEnabled the text color
      */
-    public void enableColor(boolean isEnabled) {
-        if (isEnabled)
-            colorLayout.setVisibility(VISIBLE);
-        else
-            colorLayout.setVisibility(GONE);
-
-        invalidate();
-    }
+    // public void enableColor(boolean isEnabled) {
+    //     if (isEnabled)
+    //         // colorLayout.setVisibility(VISIBLE);
+    //     else
+    //         // colorLayout.setVisibility(GONE);
+    //
+    //     invalidate();
+    // }
 
     private void updateAttrs(AttributeSet attrs) {
         TypedArray attributes = getContext().obtainStyledAttributes(attrs, R.styleable.VoxeetTimer);
@@ -180,7 +180,7 @@ public class VoxeetTimer extends VoxeetView {
         color = attributes.getColorStateList(R.styleable.VoxeetTimer_text_color);
         if (color != null) textColor = getColorForState(color, R.color.lightestGrey);
 
-        enableColor(attributes.getBoolean(R.styleable.VoxeetTimer_color_enabled, true));
+        // enableColor(attributes.getBoolean(R.styleable.VoxeetTimer_color_enabled, true));
 
         attributes.recycle();
 
@@ -197,13 +197,13 @@ public class VoxeetTimer extends VoxeetView {
     }
 
     private void updateColors() {
-        if (VoxeetSDK.conference().isLive()) {
-            // recordingImage.setColorFilter(inConferenceColor);
-            // recordingImageAlpha.setColorFilter(inConferenceColor);
-        } else {
-            // recordingImage.setColorFilter(notInConferenceColor);
-            // recordingImageAlpha.setColorFilter(notInConferenceColor);
-        }
+        // if (VoxeetSDK.conference().isLive()) {
+        //     // recordingImage.setColorFilter(inConferenceColor);
+        //     // recordingImageAlpha.setColorFilter(inConferenceColor);
+        // } else {
+        //     // recordingImage.setColorFilter(notInConferenceColor);
+        //     // recordingImageAlpha.setColorFilter(notInConferenceColor);
+        // }
 
         timer.setTextColor(textColor);
 

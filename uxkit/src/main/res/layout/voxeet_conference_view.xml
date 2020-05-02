@@ -11,12 +11,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal|center_vertical"
-        android:alpha="0.2"
+        android:alpha="1"
         android:gravity="center_horizontal"
         android:text="@string/voxeet_call"
         android:textColor="@color/white"
         android:textSize="@dimen/voxeet_conference_state_expanded"
-        android:textStyle="bold" />
+        android:textStyle="normal" />
 
     <!-- VideoView used to display incoming video streams -->
     <!-- possible scaleType := scale_fill, scale_fit, balanced -->
@@ -33,21 +33,7 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <!-- in minimized mode, show the timer -->
-        <LinearLayout
-            android:id="@+id/layout_timer"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:padding="5dp">
 
-            <com.voxeet.uxkit.implementation.VoxeetTimer
-                android:id="@+id/voxeet_timer"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center" />
-
-        </LinearLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -66,6 +52,23 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:below_system_bar="true" />
+
+                <LinearLayout
+                    android:id="@+id/layout_timer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:alpha="0.4"
+                    android:background="#303030"
+                    android:padding="5dp">
+
+                    <com.voxeet.uxkit.implementation.VoxeetTimer
+                        android:id="@+id/voxeet_timer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:id="@+id/layout_participant"
