@@ -182,7 +182,7 @@ public class VoxeetActionBarView extends VoxeetView {
     /**
      * Change how the flip button must be shown
      *
-     * @param displayFlip the new mute display state
+     * @param displayFlip the new flip display state
      * @return the current instance
      */
     @NonNull
@@ -442,7 +442,6 @@ public class VoxeetActionBarView extends VoxeetView {
          VoxeetSDK.mediaDevice().switchCamera()
                  .then(aBoolean -> {
                      CameraContext provider = VoxeetSDK.mediaDevice().getCameraContext();
-                     // updateMirror(provider.isDefaultFrontFacing());
                  })
                  .error(Throwable::printStackTrace);
      }
