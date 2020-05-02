@@ -40,10 +40,11 @@ public class ActionBar {
      */
     public Integer mic_off = null;
     /**
-     * Set the R.drawable reference to show when the mic is unmuted. _null_ to use the default one.
+     * Set the R.drawable reference to show when the flip is off. _null_ to use the default one.
      */
     public Integer flip = null;
-/**
+
+    /**
     * Set the R.drawable reference to show when the mic is unmuted. _null_ to use the default one.
     */
    public Integer mic_on = null;
