@@ -51,6 +51,8 @@ import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import com.voxeet.sdk.views.VideoView;
 
+import java.lang.ref.WeakReference;
+
 /**
  * Class used to display the various action buttons in the conference
  */
@@ -114,6 +116,12 @@ public class VoxeetActionBarView extends VoxeetView {
 
         setUserPreferences();
     }
+
+    @NonNull
+    private WeakReference<VideoView> selfVideoView;
+
+    @NonNull
+    private WeakReference<VideoView> otherVideoView;
 
     private void updateAttrs(AttributeSet attrs) {
         TypedArray attributes = getContext().obtainStyledAttributes(attrs, R.styleable.VoxeetActionBarView);
@@ -438,12 +446,41 @@ public class VoxeetActionBarView extends VoxeetView {
      * Toggle the flip button
      */
 
+     @NonNull
+     private VideoView getSelfVideoView() {
+         return selfVideoView.get();
+     }
+
+     @NonNull
+     private VideoView getOtherVideoView() {
+         return otherVideoView.get();
+     }
+
      public void toggleFlip() {
          VoxeetSDK.mediaDevice().switchCamera()
                  .then(aBoolean -> {
                      CameraContext provider = VoxeetSDK.mediaDevice().getCameraContext();
+                     updateMirror(provider.isDefaultFrontFacing());
                  })
                  .error(Throwable::printStackTrace);
+     }
+
+     public void updateMirror(boolean isFrontCamera) {
+         String ownUserId = VoxeetSDK.session().getParticipantId();
+         VideoView selectedView = getOtherVideoView();
+         VideoView selfView = getSelfVideoView();
+
+         if (null != ownUserId) {
+             if (null != selectedView && ownUserId.equals(selectedView.getPeerId())) {
+                 //only mirror the view in case of camera stream
+                 MediaStreamType type = selectedView.current();
+                 if (MediaStreamType.Camera.equals(type)) {
+                     selectedView.setMirror(isFrontCamera);
+                 }
+             } else if (null != selfView && ownUserId.equals(selfView.getPeerId())) {
+                 selfView.setMirror(isFrontCamera);
+             }
+         }
      }
 
     /**
