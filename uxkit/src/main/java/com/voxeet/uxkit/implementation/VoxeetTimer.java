@@ -283,11 +283,11 @@ public class VoxeetTimer extends VoxeetView {
     protected void bindView(View v) {
         timer = v.findViewById(R.id.timer_conference);
 
-        colorLayout = v.findViewById(R.id.color_layout);
+        // colorLayout = v.findViewById(R.id.color_layout);
 
-        recordingImage = v.findViewById(R.id.recording_status_image);
+        // recordingImage = v.findViewById(R.id.recording_status_image);
 
-        recordingImageAlpha = v.findViewById(R.id.recording_status_image_alpha);
+        // recordingImageAlpha = v.findViewById(R.id.recording_status_image_alpha);
 
         //no listeners for this item
     }
