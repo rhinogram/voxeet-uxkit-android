@@ -532,7 +532,7 @@ public class VoxeetActionBarView extends VoxeetView {
             hangup_wrapper.setVisibility(displayLeave ? VISIBLE : GONE);
 
         if (flip != null)
-            flip_wrapper.setVisibility(displayLeave ? VISIBLE : GONE);
+            flip_wrapper.setVisibility(displayFlip ? VISIBLE : GONE);
 
         boolean screenShareEnabled = VoxeetToolkit.instance().getConferenceToolkit().isScreenShareEnabled();
         if (screenshare != null)
