@@ -29,11 +29,11 @@ public class VoxeetTimer extends VoxeetView {
 
     private int action = 1;
 
-    private RoundedImageView recordingImageAlpha;
+    // private RoundedImageView recordingImageAlpha;
+    //
+    // private RoundedImageView recordingImage;
 
-    private RoundedImageView recordingImage;
-
-    private ViewGroup colorLayout;
+    // private ViewGroup colorLayout;
 
     private TextView timer;
 
@@ -153,14 +153,14 @@ public class VoxeetTimer extends VoxeetView {
      *
      * @param isEnabled the text color
      */
-    public void enableColor(boolean isEnabled) {
-        if (isEnabled)
-            colorLayout.setVisibility(VISIBLE);
-        else
-            colorLayout.setVisibility(GONE);
-
-        invalidate();
-    }
+    // public void enableColor(boolean isEnabled) {
+    //     if (isEnabled)
+    //         // colorLayout.setVisibility(VISIBLE);
+    //     else
+    //         // colorLayout.setVisibility(GONE);
+    //
+    //     invalidate();
+    // }
 
     private void updateAttrs(AttributeSet attrs) {
         TypedArray attributes = getContext().obtainStyledAttributes(attrs, R.styleable.VoxeetTimer);
@@ -180,7 +180,7 @@ public class VoxeetTimer extends VoxeetView {
         color = attributes.getColorStateList(R.styleable.VoxeetTimer_text_color);
         if (color != null) textColor = getColorForState(color, R.color.lightestGrey);
 
-        enableColor(attributes.getBoolean(R.styleable.VoxeetTimer_color_enabled, true));
+        // enableColor(attributes.getBoolean(R.styleable.VoxeetTimer_color_enabled, true));
 
         attributes.recycle();
 
@@ -197,13 +197,13 @@ public class VoxeetTimer extends VoxeetView {
     }
 
     private void updateColors() {
-        if (VoxeetSDK.conference().isLive()) {
-            recordingImage.setColorFilter(inConferenceColor);
-            recordingImageAlpha.setColorFilter(inConferenceColor);
-        } else {
-            recordingImage.setColorFilter(notInConferenceColor);
-            recordingImageAlpha.setColorFilter(notInConferenceColor);
-        }
+        // if (VoxeetSDK.conference().isLive()) {
+        //     // recordingImage.setColorFilter(inConferenceColor);
+        //     // recordingImageAlpha.setColorFilter(inConferenceColor);
+        // } else {
+        //     // recordingImage.setColorFilter(notInConferenceColor);
+        //     // recordingImageAlpha.setColorFilter(notInConferenceColor);
+        // }
 
         timer.setTextColor(textColor);
 
@@ -229,8 +229,8 @@ public class VoxeetTimer extends VoxeetView {
             @Override
             public void onAnimationUpdate(ValueAnimator animator) {
                 int color = (int) animator.getAnimatedValue();
-                recordingImage.setColorFilter(color);
-                recordingImageAlpha.setColorFilter(color);
+                // recordingImage.setColorFilter(color);
+                // recordingImageAlpha.setColorFilter(color);
             }
 
         });
@@ -250,7 +250,7 @@ public class VoxeetTimer extends VoxeetView {
     public void onConferenceDestroyed() {
         super.onConferenceDestroyed();
         if (action == CONFERENCE_MODE) {
-            recordingImage.clearAnimation();
+            // recordingImage.clearAnimation();
 
             handler.removeCallbacks(updateTimerThread);
         }
@@ -275,19 +275,19 @@ public class VoxeetTimer extends VoxeetView {
 
     @Override
     public void init() {
-        recordingImage.setColorFilter(notInConferenceColor);
-        recordingImageAlpha.setColorFilter(notInConferenceColor);
+        // recordingImage.setColorFilter(notInConferenceColor);
+        // recordingImageAlpha.setColorFilter(notInConferenceColor);
     }
 
     @Override
     protected void bindView(View v) {
         timer = v.findViewById(R.id.timer_conference);
 
-        colorLayout = v.findViewById(R.id.color_layout);
+        // colorLayout = v.findViewById(R.id.color_layout);
 
-        recordingImage = v.findViewById(R.id.recording_status_image);
+        // recordingImage = v.findViewById(R.id.recording_status_image);
 
-        recordingImageAlpha = v.findViewById(R.id.recording_status_image_alpha);
+        // recordingImageAlpha = v.findViewById(R.id.recording_status_image_alpha);
 
         //no listeners for this item
     }

@@ -47,6 +47,7 @@
     <declare-styleable name="VoxeetActionBarView">
         <attr name="record_button" format="boolean" />
         <attr name="mute_button" format="boolean" />
+        <attr name="flip_button" format="boolean" />
         <attr name="video_button" format="boolean" />
         <attr name="speaker_button" format="boolean" />
         <attr name="mix3d_button" format="boolean" />
