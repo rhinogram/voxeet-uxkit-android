@@ -376,6 +376,14 @@ public class VoxeetActionBarView extends VoxeetView {
         hangup.setOnClickListener(v1 -> {
             VoxeetSDK.audio().playSoundType(AudioType.HANGUP);
 
+            // kick other participants out of conference
+            String conferenceId = VoxeetSDK.conference().getConferenceId();
+            if (null != conferenceId) {
+                VoxeetSDK.command().send(conferenceId, "Kick_Admin_Hang_up")
+                .then(result -> {
+                }).error(Throwable::printStackTrace);
+            }
+            
             VoxeetSDK.conference().leave()
                     .then(aBoolean -> {
                         //manage the result ?
