@@ -44,6 +44,7 @@ import com.voxeet.sdk.utils.Validate;
 import com.voxeet.uxkit.R;
 import com.voxeet.uxkit.configuration.ActionBar;
 import com.voxeet.uxkit.controllers.VoxeetToolkit;
+import com.voxeet.uxkit.events.UXKitNotInConferenceEvent;
 import com.voxeet.sdk.media.camera.CameraContext;
 
 import org.greenrobot.eventbus.EventBus;
@@ -376,6 +377,7 @@ public class VoxeetActionBarView extends VoxeetView {
         hangup.setOnClickListener(v1 -> {
             VoxeetSDK.audio().playSoundType(AudioType.HANGUP);
 
+<<<<<<< HEAD
             // kick other participants out of conference
             String conferenceId = VoxeetSDK.conference().getConferenceId();
             if (null != conferenceId) {
@@ -383,7 +385,14 @@ public class VoxeetActionBarView extends VoxeetView {
                 .then(result -> {
                 }).error(Throwable::printStackTrace);
             }
-            
+
+=======
+            if(!VoxeetSDK.conference().isLive()) {
+                EventBus.getDefault().post(new UXKitNotInConferenceEvent());
+                return;
+            }
+
+>>>>>>> fe49678c8183a2ae236a718341e657cc15209fbf
             VoxeetSDK.conference().leave()
                     .then(aBoolean -> {
                         //manage the result ?
