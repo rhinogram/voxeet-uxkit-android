@@ -376,8 +376,10 @@ public class VoxeetActionBarView extends VoxeetView {
         hangup_wrapper = v.findViewById(R.id.hangup_wrapper);
         hangup.setOnClickListener(v1 -> {
             VoxeetSDK.audio().playSoundType(AudioType.HANGUP);
-
-<<<<<<< HEAD
+            if(!VoxeetSDK.conference().isLive()) {
+                EventBus.getDefault().post(new UXKitNotInConferenceEvent());
+                return;
+            }
             // kick other participants out of conference
             String conferenceId = VoxeetSDK.conference().getConferenceId();
             if (null != conferenceId) {
@@ -385,14 +387,6 @@ public class VoxeetActionBarView extends VoxeetView {
                 .then(result -> {
                 }).error(Throwable::printStackTrace);
             }
-
-=======
-            if(!VoxeetSDK.conference().isLive()) {
-                EventBus.getDefault().post(new UXKitNotInConferenceEvent());
-                return;
-            }
-
->>>>>>> fe49678c8183a2ae236a718341e657cc15209fbf
             VoxeetSDK.conference().leave()
                     .then(aBoolean -> {
                         //manage the result ?
