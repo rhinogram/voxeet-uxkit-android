@@ -25,8 +25,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone"
-        app:cornerRadius="@dimen/voxeet_overlay_minized_corner"
-        app:scaleType="scale_fill" />
+        app:cornerRadius="@dimen/voxeet_overlay_minized_corner"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -127,7 +126,6 @@
             android:layout_marginTop="48dp"
             android:layout_marginBottom="32dp"
             app:cornerRadius="5dp"
-            app:scaleType="scale_fit"
             app:showFlip="false" />
 
         <!-- call action buttons -->
